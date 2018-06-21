@@ -1,18 +1,13 @@
 {
   "name": "baidu-reader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "baidu-reader",
   "main": "index.js",
   "scripts": {
     "test": "echo 'hello world'"
   },
-  "keywords": [
-    "baiduAPI",
-    "reader"
-  ],
-  "files": [
-    "index.js"
-  ],
+  "keywords": ["baiduAPI", "reader"],
+  "files": ["index.js"],
   "author": "yugo",
   "license": "MIT",
   "dependencies": {
