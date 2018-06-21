@@ -1,0 +1,20 @@
+{
+  "name": "baidu-reader",
+  "version": "1.0.0",
+  "description": "baidu-reader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'hello world'"
+  },
+  "keywords": ["baiduAPI", "reader"],
+  "files": ["index.js"],
+  "author": "yugo",
+  "license": "MIT",
+  "dependencies": {
+    "baidu-aip-sdk": "^2.3.1",
+    "from2": "^2.3.0",
+    "lame": "^1.2.4",
+    "multipipe": "^2.0.3",
+    "speaker": "^0.4.1"
+  }
+}
