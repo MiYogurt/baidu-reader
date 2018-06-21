@@ -6,8 +6,13 @@
   "scripts": {
     "test": "echo 'hello world'"
   },
-  "keywords": ["baiduAPI", "reader"],
-  "files": ["index.js"],
+  "keywords": [
+    "baiduAPI",
+    "reader"
+  ],
+  "files": [
+    "index.js"
+  ],
   "author": "yugo",
   "license": "MIT",
   "dependencies": {

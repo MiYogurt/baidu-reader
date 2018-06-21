@@ -70,7 +70,7 @@ function init({ APP_ID, API_KEY, SECRET_KEY }, opts = {}) {
       return push(null) // 宁可报错也不要声音不全
     }
     const textArr = splitText(text)
-    console.log(textArr)
+    process.env.DEBUG && console.log(textArr)
     const mp3DataArray = await getMp3Data(textArr, client, opts)
     mp3DataArray.forEach(push)
     if (opts && opts.save) {
