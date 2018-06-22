@@ -5,13 +5,13 @@ const form2 = require('from2')
 const multipipe = require('multipipe')
 
 const splitText = text => {
-  text = text.replace(/[\s\.\-\。\,\，\、]/g, '')
+  text = text.replace(/[\s\.\-\。\,\，\、\“\”]/g, '')
   process.env.DEBUG && console.log(text)
   const length = text.length
   const datas = []
   let index = 0
   while (index <= length) {
-    let currentText = text.substring(index, 510)
+    let currentText = text.substr(index, 510)
     index += 510
     datas.push(currentText)
   }
