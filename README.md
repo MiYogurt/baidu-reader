@@ -1,6 +1,6 @@
 # Baidu Reader
 
-goto `https://ai.baidu.com/` and reading `https://ai.baidu.com/docs#/ASR-Online-Node-SDK/1782a062` create you self api key.
+goto `https://ai.baidu.com/` and reading `https://ai.baidu.com/docs#/TTS-Online-Node-SDK/top` create you self api key.
 
 ```js
 const Reader = require('baidu-reader')
