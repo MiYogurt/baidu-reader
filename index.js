@@ -3,6 +3,7 @@ const Speaker = require('speaker')
 const lame = require('lame')
 const form2 = require('from2')
 const multipipe = require('multipipe')
+const { resolve } = require('path')
 
 const splitText = text => {
   text = text.replace(/[\s\.\-\。\,\，\、\“\”]/g, '')
@@ -18,7 +19,9 @@ const splitText = text => {
   return datas
 }
 
-const getMp3Data = async (textArr, client, opts) => {
+const getMp3Data = async (text, client, opts) => {
+  const textArr = splitText(text)
+  process.env.DEBUG && console.log(textArr)
   return Promise.all(
     textArr.map(async chunk => {
       const { data } = await client.text2audio(chunk, opts || {})
@@ -30,10 +33,14 @@ const getMp3Data = async (textArr, client, opts) => {
 const saveFiles = async (datas, opts) => {
   const fs = require('fs')
   const path = opts.path || process.pwd()
+  const getFilename =
+    opts.filename || (i => resolve(`${path}/${Date.now()}${i}.mp3`))
   const wait = datas.map((data, i) => {
     return new Promise((resolve, reject) => {
-      fs.writeFile(`${path}/${Date.now()}${i}.mp3`, data, err => {
+      const filename = getFilename(i)
+      fs.writeFile(filename, data, err => {
         if (err) {
+          console.log(err)
           return reject(err)
         }
         resolve()
@@ -56,7 +63,7 @@ function reader() {
   return data => push(data)
 }
 
-function init({ APP_ID, API_KEY, SECRET_KEY }, opts = {}) {
+function initClient({ APP_ID, API_KEY, SECRET_KEY }) {
   APP_ID = APP_ID || process.env.BAIDU_READER_APP_ID
   API_KEY = API_KEY || process.env.BAIDU_READER_API_KEY
   SECRET_KEY = SECRET_KEY || process.env.BAIDU_READER_SECRET_KEY
@@ -64,23 +71,32 @@ function init({ APP_ID, API_KEY, SECRET_KEY }, opts = {}) {
     return console.log('请提供 Baidu API 接口验证信息')
   }
   const client = new AipSpeechClient(APP_ID, API_KEY, SECRET_KEY)
-  let push = reader()
-  return async text => {
-    if (text === null) {
-      return push(null) // 宁可报错也不要声音不全
-    }
-    const textArr = splitText(text)
-    process.env.DEBUG && console.log(textArr)
-    const mp3DataArray = await getMp3Data(textArr, client, opts)
-    mp3DataArray.forEach(push)
-    if (opts && opts.save) {
-      saveFiles(mp3DataArray, opts)
-    }
-    return () => {
-      push(null)
-    }
+  return client
+}
+
+const play = (next, opts, client) => async text => {
+  if (text === null) {
+    return next(null) // 宁可报错也不要声音不全
   }
+
+  const mp3DataArray = await getMp3Data(text, client, opts)
+  mp3DataArray.forEach(next)
+
+  if (opts && opts.save) {
+    saveFiles(mp3DataArray, opts)
+  }
+  return () => {
+    next(null)
+  }
+}
+
+function init({ APP_ID, API_KEY, SECRET_KEY }, opts = {}) {
+  const client = initClient({ APP_ID, API_KEY, SECRET_KEY })
+  let next = reader()
+  return play(next, opts, client)
 }
 
 module.exports = init
 module.exports.reader = reader
+module.exports.getMp3Data = getMp3Data
+module.exports.saveFiles = saveFiles

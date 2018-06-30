@@ -3,7 +3,7 @@ const Reader = require('.')
 const reader = Reader(
   {},
   {
-    save: false,
+    save: true,
     path: __dirname,
     per: 4
   }
