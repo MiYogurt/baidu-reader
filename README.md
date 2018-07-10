@@ -24,3 +24,25 @@ const reader = Reader(
   await reader(null) // close
 })()
 ```
+
+# api
+
+## initClient
+
+`initClient({ APP_ID, API_KEY, SECRET_KEY })` -> client
+
+## play = (next, opts, client) => async text => {}
+
+next 是 `reader` 返回值
+
+## reader
+
+命令行播放器，得到一个可以一直 push 音频数据的一个流
+
+## getMp3Data = async (text, client, opts)
+
+拉取 MP3 数据
+
+## const saveFiles = async (datas, opts)
+
+保存 datas 文件

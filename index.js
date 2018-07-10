@@ -85,6 +85,7 @@ const play = (next, opts, client) => async text => {
   if (opts && opts.save) {
     saveFiles(mp3DataArray, opts)
   }
+
   return () => {
     next(null)
   }
@@ -97,6 +98,8 @@ function init({ APP_ID, API_KEY, SECRET_KEY }, opts = {}) {
 }
 
 module.exports = init
+module.exports.default = init
+module.exports.initClient = init
 module.exports.reader = reader
 module.exports.getMp3Data = getMp3Data
 module.exports.saveFiles = saveFiles
