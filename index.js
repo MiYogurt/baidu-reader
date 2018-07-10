@@ -6,7 +6,7 @@ const multipipe = require('multipipe')
 const { resolve } = require('path')
 
 const splitText = text => {
-  text = text.replace(/[\s\.\-\。\,\，\、\“\”]/g, '')
+  // text = text.replace(/[\s\.\-\。\,\，\、\“\”]/g, '')
   process.env.DEBUG && console.log(text)
   const length = text.length
   const datas = []

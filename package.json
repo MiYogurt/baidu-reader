@@ -1,6 +1,6 @@
 {
   "name": "baidu-reader",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "baidu-reader",
   "main": "index.js",
   "scripts": {
