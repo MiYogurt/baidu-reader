@@ -99,7 +99,7 @@ function init({ APP_ID, API_KEY, SECRET_KEY }, opts = {}) {
 
 module.exports = init
 module.exports.default = init
-module.exports.initClient = init
+module.exports.initClient = initClient
 module.exports.reader = reader
 module.exports.getMp3Data = getMp3Data
 module.exports.saveFiles = saveFiles
