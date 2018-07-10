@@ -32,7 +32,7 @@ const getMp3Data = async (text, client, opts) => {
 
 const saveFiles = async (datas, opts) => {
   const fs = require('fs')
-  const path = opts.path || process.pwd()
+  const path = opts.path || process.cwd()
   const getFilename =
     opts.filename || (i => resolve(`${path}/${Date.now()}${i}.mp3`))
   const wait = datas.map((data, i) => {
